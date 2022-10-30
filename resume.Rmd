@@ -7,6 +7,8 @@ output:
     theme: cosmo
 ---
 
+I am a second-year master of public health candidate who is passionate in pursuing a career in epidemiological or biostatistic field. 
+
 ### EDUCATION
 
 * Columbia University, Mailman School of Public Health (Sep 2021 - present)
