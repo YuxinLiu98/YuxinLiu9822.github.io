@@ -8,4 +8,4 @@ output:
 ---
 Hello! Welcome to Yuxin Liu's personal website! This website contains my [Resume](resume.html), [GitHub](http://github.com/YuxinLiu98/), email, and other professional networks [Linkedin](https://www.linkedin.com/in/yuxin-liu-5b9b6a181/).
 
-Additionally, this websites contains [plotly](ploty.html)
+Additionally, this websites contains [dashboard](dashboard.html)

@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>dashboard</title>
+
+<script src="site_libs/header-attrs-2.16/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<script src="site_libs/plotly-binding-4.10.0/plotly.js"></script>
+<script src="site_libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="site_libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
+<script src="site_libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+<link href="site_libs/plotly-htmlwidgets-css-2.5.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="site_libs/plotly-main-2.5.1/plotly-latest.min.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Home</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="resume.html">Resume</a>
+</li>
+<li>
+  <a href="mailto:&lt;yl4610@cumc.columbia.edu&gt;">
+    <span class="fa fa-envelope fa-lg"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="http://github.com/YuxinLiu98/">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="https://www.linkedin.com/in/yuxin-liu-5b9b6a181/">
+    <span class="fa fa-brands fa-linkedin"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">dashboard</h1>
+
+</div>
+
+
+<pre class="r"><code>data(&quot;instacart&quot;) 
+janitor::clean_names(instacart)</code></pre>
+<div id="column" class="section level2" data-width="650">
+<h2>Column</h2>
+<div id="number-of-items-500-ordered-in-each-aisle"
+class="section level3">
+<h3>Number of items (&lt; 500) ordered in each aisle</h3>
+<pre class="r"><code>instacart1=
+instacart %&gt;%
+  count(aisle) %&gt;% 
+  filter(n &lt; 500) %&gt;% 
+  mutate(aisle = fct_reorder(aisle, n)) %&gt;% 
+  plot_ly(
+    x = ~aisle, y = ~n, type = &quot;scatter&quot;, mode = &quot;markers&quot;,
+    color = ~aisle, alpha = 0.8)
+instacart1</code></pre>
+<div id="htmlwidget-7e8c63799a634398d8d8" style="width:672px;height:480px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-7e8c63799a634398d8d8">{"x":{"visdat":{"16dc427bfbdeb":["function () ","plotlyVisDat"]},"cur_data":"16dc427bfbdeb","attrs":{"16dc427bfbdeb":{"x":{},"y":{},"mode":"markers","color":{},"alpha":0.8,"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"xaxis":{"domain":[0,1],"automargin":true,"title":"aisle","type":"category","categoryorder":"array","categoryarray":["beauty","frozen juice","baby accessories","baby bath body care","kitchen supplies","specialty wines champagnes"]},"yaxis":{"domain":[0,1],"automargin":true,"title":"n"},"hovermode":"closest","showlegend":true},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"x":["beauty"],"y":[287],"mode":"markers","type":"scatter","name":"beauty","marker":{"color":"rgba(102,194,165,0.8)","line":{"color":"rgba(102,194,165,1)"}},"textfont":{"color":"rgba(102,194,165,0.8)"},"error_y":{"color":"rgba(102,194,165,0.8)"},"error_x":{"color":"rgba(102,194,165,0.8)"},"line":{"color":"rgba(102,194,165,0.8)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["frozen juice"],"y":[294],"mode":"markers","type":"scatter","name":"frozen juice","marker":{"color":"rgba(252,141,98,0.8)","line":{"color":"rgba(252,141,98,1)"}},"textfont":{"color":"rgba(252,141,98,0.8)"},"error_y":{"color":"rgba(252,141,98,0.8)"},"error_x":{"color":"rgba(252,141,98,0.8)"},"line":{"color":"rgba(252,141,98,0.8)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["baby accessories"],"y":[306],"mode":"markers","type":"scatter","name":"baby accessories","marker":{"color":"rgba(141,160,203,0.8)","line":{"color":"rgba(141,160,203,1)"}},"textfont":{"color":"rgba(141,160,203,0.8)"},"error_y":{"color":"rgba(141,160,203,0.8)"},"error_x":{"color":"rgba(141,160,203,0.8)"},"line":{"color":"rgba(141,160,203,0.8)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["baby bath body care"],"y":[328],"mode":"markers","type":"scatter","name":"baby bath body care","marker":{"color":"rgba(231,138,195,0.8)","line":{"color":"rgba(231,138,195,1)"}},"textfont":{"color":"rgba(231,138,195,0.8)"},"error_y":{"color":"rgba(231,138,195,0.8)"},"error_x":{"color":"rgba(231,138,195,0.8)"},"line":{"color":"rgba(231,138,195,0.8)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["kitchen supplies"],"y":[448],"mode":"markers","type":"scatter","name":"kitchen supplies","marker":{"color":"rgba(166,216,84,0.8)","line":{"color":"rgba(166,216,84,1)"}},"textfont":{"color":"rgba(166,216,84,0.8)"},"error_y":{"color":"rgba(166,216,84,0.8)"},"error_x":{"color":"rgba(166,216,84,0.8)"},"line":{"color":"rgba(166,216,84,0.8)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["specialty wines champagnes"],"y":[461],"mode":"markers","type":"scatter","name":"specialty wines champagnes","marker":{"color":"rgba(255,217,47,0.8)","line":{"color":"rgba(255,217,47,1)"}},"textfont":{"color":"rgba(255,217,47,0.8)"},"error_y":{"color":"rgba(255,217,47,0.8)"},"error_x":{"color":"rgba(255,217,47,0.8)"},"line":{"color":"rgba(255,217,47,0.8)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<div id="column-1" class="section level2" data-width="350">
+<h2>Column</h2>
+<div id="chart-b" class="section level3">
+<h3>Chart B</h3>
+<pre class="r"><code>instacart2=
+instacart %&gt;%
+  count(department) %&gt;% 
+  filter(n &lt; 100000) %&gt;% 
+  mutate(department = fct_reorder(department, n)) %&gt;% 
+  plot_ly(x = ~department, y = ~n, color = ~department, type = &quot;bar&quot;, colors = &quot;viridis&quot;)
+instacart2</code></pre>
+<div id="htmlwidget-790844fc64ebd533342c" style="width:672px;height:480px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-790844fc64ebd533342c">{"x":{"visdat":{"16dc4543586d7":["function () ","plotlyVisDat"]},"cur_data":"16dc4543586d7","attrs":{"16dc4543586d7":{"x":{},"y":{},"color":{},"colors":"viridis","alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"bar"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"xaxis":{"domain":[0,1],"automargin":true,"title":"department","type":"category","categoryorder":"array","categoryarray":["bulk","other","pets","alcohol","missing","international","babies","personal care","breakfast","meat seafood","household","dry goods pasta","deli","canned goods","bakery","pantry"]},"yaxis":{"domain":[0,1],"automargin":true,"title":"n"},"hovermode":"closest","showlegend":true},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"x":["bulk"],"y":[1359],"type":"bar","name":"bulk","marker":{"color":"rgba(68,1,84,1)","line":{"color":"rgba(68,1,84,1)"}},"textfont":{"color":"rgba(68,1,84,1)"},"error_y":{"color":"rgba(68,1,84,1)"},"error_x":{"color":"rgba(68,1,84,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["other"],"y":[1795],"type":"bar","name":"other","marker":{"color":"rgba(72,26,108,1)","line":{"color":"rgba(72,26,108,1)"}},"textfont":{"color":"rgba(72,26,108,1)"},"error_y":{"color":"rgba(72,26,108,1)"},"error_x":{"color":"rgba(72,26,108,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["pets"],"y":[4497],"type":"bar","name":"pets","marker":{"color":"rgba(71,47,125,1)","line":{"color":"rgba(71,47,125,1)"}},"textfont":{"color":"rgba(71,47,125,1)"},"error_y":{"color":"rgba(71,47,125,1)"},"error_x":{"color":"rgba(71,47,125,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["alcohol"],"y":[5598],"type":"bar","name":"alcohol","marker":{"color":"rgba(65,68,135,1)","line":{"color":"rgba(65,68,135,1)"}},"textfont":{"color":"rgba(65,68,135,1)"},"error_y":{"color":"rgba(65,68,135,1)"},"error_x":{"color":"rgba(65,68,135,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["missing"],"y":[8251],"type":"bar","name":"missing","marker":{"color":"rgba(57,86,140,1)","line":{"color":"rgba(57,86,140,1)"}},"textfont":{"color":"rgba(57,86,140,1)"},"error_y":{"color":"rgba(57,86,140,1)"},"error_x":{"color":"rgba(57,86,140,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["international"],"y":[11902],"type":"bar","name":"international","marker":{"color":"rgba(49,104,142,1)","line":{"color":"rgba(49,104,142,1)"}},"textfont":{"color":"rgba(49,104,142,1)"},"error_y":{"color":"rgba(49,104,142,1)"},"error_x":{"color":"rgba(49,104,142,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["babies"],"y":[14941],"type":"bar","name":"babies","marker":{"color":"rgba(42,120,142,1)","line":{"color":"rgba(42,120,142,1)"}},"textfont":{"color":"rgba(42,120,142,1)"},"error_y":{"color":"rgba(42,120,142,1)"},"error_x":{"color":"rgba(42,120,142,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["personal care"],"y":[21570],"type":"bar","name":"personal care","marker":{"color":"rgba(35,136,142,1)","line":{"color":"rgba(35,136,142,1)"}},"textfont":{"color":"rgba(35,136,142,1)"},"error_y":{"color":"rgba(35,136,142,1)"},"error_x":{"color":"rgba(35,136,142,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["breakfast"],"y":[29500],"type":"bar","name":"breakfast","marker":{"color":"rgba(31,152,139,1)","line":{"color":"rgba(31,152,139,1)"}},"textfont":{"color":"rgba(31,152,139,1)"},"error_y":{"color":"rgba(31,152,139,1)"},"error_x":{"color":"rgba(31,152,139,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["meat seafood"],"y":[30307],"type":"bar","name":"meat seafood","marker":{"color":"rgba(34,168,132,1)","line":{"color":"rgba(34,168,132,1)"}},"textfont":{"color":"rgba(34,168,132,1)"},"error_y":{"color":"rgba(34,168,132,1)"},"error_x":{"color":"rgba(34,168,132,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["household"],"y":[35986],"type":"bar","name":"household","marker":{"color":"rgba(53,183,121,1)","line":{"color":"rgba(53,183,121,1)"}},"textfont":{"color":"rgba(53,183,121,1)"},"error_y":{"color":"rgba(53,183,121,1)"},"error_x":{"color":"rgba(53,183,121,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["dry goods pasta"],"y":[38713],"type":"bar","name":"dry goods pasta","marker":{"color":"rgba(84,197,104,1)","line":{"color":"rgba(84,197,104,1)"}},"textfont":{"color":"rgba(84,197,104,1)"},"error_y":{"color":"rgba(84,197,104,1)"},"error_x":{"color":"rgba(84,197,104,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["deli"],"y":[44291],"type":"bar","name":"deli","marker":{"color":"rgba(122,209,81,1)","line":{"color":"rgba(122,209,81,1)"}},"textfont":{"color":"rgba(122,209,81,1)"},"error_y":{"color":"rgba(122,209,81,1)"},"error_x":{"color":"rgba(122,209,81,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["canned goods"],"y":[46799],"type":"bar","name":"canned goods","marker":{"color":"rgba(165,219,54,1)","line":{"color":"rgba(165,219,54,1)"}},"textfont":{"color":"rgba(165,219,54,1)"},"error_y":{"color":"rgba(165,219,54,1)"},"error_x":{"color":"rgba(165,219,54,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["bakery"],"y":[48394],"type":"bar","name":"bakery","marker":{"color":"rgba(210,226,27,1)","line":{"color":"rgba(210,226,27,1)"}},"textfont":{"color":"rgba(210,226,27,1)"},"error_y":{"color":"rgba(210,226,27,1)"},"error_x":{"color":"rgba(210,226,27,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["pantry"],"y":[81242],"type":"bar","name":"pantry","marker":{"color":"rgba(253,231,37,1)","line":{"color":"rgba(253,231,37,1)"}},"textfont":{"color":"rgba(253,231,37,1)"},"error_y":{"color":"rgba(253,231,37,1)"},"error_x":{"color":"rgba(253,231,37,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+<div id="chart-c" class="section level3">
+<h3>Chart C</h3>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

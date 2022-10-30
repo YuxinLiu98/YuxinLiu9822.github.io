@@ -1,0 +1,57 @@
+---
+title: "dashboard"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
+---
+
+```{r setup, include=FALSE}
+library(tidyverse)
+library(p8105.datasets)
+library(plotly)
+```
+
+```{r, message=FALSE, results='hide'}
+data("instacart") 
+janitor::clean_names(instacart)
+```
+
+Column {data-width=650}
+-----------------------------------------------------------------------
+
+###  Number of items (< 500) ordered in each aisle
+
+```{r, warning=FALSE, message=FALSE}
+instacart1=
+instacart %>%
+  count(aisle) %>% 
+  filter(n < 500) %>% 
+  mutate(aisle = fct_reorder(aisle, n)) %>% 
+  plot_ly(
+    x = ~aisle, y = ~n, type = "scatter", mode = "markers",
+    color = ~aisle, alpha = 0.8)
+instacart1
+```
+
+Column {data-width=350}
+-----------------------------------------------------------------------
+
+### Chart B
+
+```{r}
+instacart2=
+instacart %>%
+  count(department) %>% 
+  filter(n < 100000) %>% 
+  mutate(department = fct_reorder(department, n)) %>% 
+  plot_ly(x = ~department, y = ~n, color = ~department, type = "bar", colors = "viridis")
+instacart2
+```
+
+### Chart C
+
+```{r}
+
+```
+
