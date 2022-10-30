@@ -1,9 +1,10 @@
 ---
-title: "dashboard"
+title: "plotly"
 output: 
-  flexdashboard::flex_dashboard:
-    orientation: columns
-    vertical_layout: fill
+  html_document:
+    toc: true
+    toc_float: true
+    theme: cosmo
 ---
 
 ```{r setup, include=FALSE}
@@ -11,14 +12,12 @@ library(tidyverse)
 library(p8105.datasets)
 library(plotly)
 ```
+After loading libraries, I used "Instacart" dataset to create a scatter plot, a bar chart and a box plot. 
 
 ```{r, message=FALSE, results='hide'}
 data("instacart") 
 janitor::clean_names(instacart)
 ```
-
-Column {data-width=650}
------------------------------------------------------------------------
 
 ###  Total number of items (< 500) ordered in each aisle
 
@@ -34,9 +33,7 @@ instacart %>%
   layout(title = "Total number of items (< 500) ordered in each aisle")
 instacart1
 ```
-
-Column {data-width=350}
------------------------------------------------------------------------
+I used count and filter to restrict total number of items ordered in each aisle less than 500. I used mutate to rank them from lowest to highest number of items ordered. Lastly, I used plot_ly to create the scatter plot.
 
 ### Total number of items (< 100000) ordered in each department 
 
@@ -51,6 +48,7 @@ instacart %>%
   layout(title = "Total number of items (< 100000) ordered in each department")
 instacart2
 ```
+I used count and filter to restrict total number of items ordered in each department less than 100000. I used mutate to rank them from lowest to highest number of items ordered. Lastly, I used plot_ly to create the bar chart.
 
 ### Mean hour of the day at which Pink Lady Apples and Coffee Ice Cream are ordered 
 
@@ -64,4 +62,4 @@ instacart %>%
   layout(title = "Mean hour at which Pink Lady Apples and Coffee Ice Cream are ordered")
 instacart3
 ```
-
+I used filter to select Pink Lady Apples and Coffee Ice Cream. Then, I used group_by to group them by name of the product and day of the week on which the order was placed. Then, I used summarize to calculate mean hour of the day on which the order was placed. Lastly, I used plot_ly to create the box plot.
