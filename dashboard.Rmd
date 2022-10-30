@@ -53,14 +53,16 @@ instacart %>%
 instacart2
 ```
 
-### Order (<35) in which each product was added to cart in each department 
+### Mean hour of the day at which Pink Lady Apples and Coffee Ice Cream are ordered 
 
-```{r}
+```{r, message=FALSE}
 instacart3=
 instacart %>%
-  filter(add_to_cart_order < 35) %>% 
-  mutate(department = fct_reorder(department, add_to_cart_order)) %>% 
-  plot_ly(y = ~add_to_cart_order, color = ~department, type = "box", colors = "viridis") %>% 
-  layout(title = "Order (<35) in which each product was added to cart in each department")
+  filter(product_name %in% c("Pink Lady Apples", "Coffee Ice Cream")) %>%
+  group_by(product_name, order_dow) %>%
+  summarize(mean_hour = mean(order_hour_of_day)) %>%
+  plot_ly(y = ~mean_hour, color = ~product_name, type = "box", colors = "viridis") %>% 
+  layout(title = "Mean hour at which Pink Lady Apples and Coffee Ice Cream are ordered")
 instacart3
 ```
+
