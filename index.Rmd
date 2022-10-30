@@ -9,4 +9,9 @@ output:
 
 
 
+```{r, message = FALSE}
+library(tidyverse)
+```
+
+Please navigate to my [resume](resume.html)
 
