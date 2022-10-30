@@ -11,6 +11,7 @@ library(tidyverse)
 library(p8105.datasets)
 library(plotly)
 ```
+After loading libraries, I used "Instacart" dataset to create a scatter plot, a bar chart and a box plot. 
 
 ```{r, message=FALSE, results='hide'}
 data("instacart") 
@@ -20,7 +21,7 @@ janitor::clean_names(instacart)
 Column {data-width=650}
 -----------------------------------------------------------------------
 
-###  Number of items (< 500) ordered in each aisle
+###  Total number of items (< 500) ordered in each aisle
 
 ```{r, warning=FALSE, message=FALSE}
 instacart1=
@@ -30,14 +31,15 @@ instacart %>%
   mutate(aisle = fct_reorder(aisle, n)) %>% 
   plot_ly(
     x = ~aisle, y = ~n, type = "scatter", mode = "markers",
-    color = ~aisle, alpha = 0.8)
+    color = ~aisle, alpha = 0.8) %>% 
+  layout(title = "Total number of items (< 500) ordered in each aisle")
 instacart1
 ```
 
 Column {data-width=350}
 -----------------------------------------------------------------------
 
-### Chart B
+### Total number of items (< 100000) ordered in each department 
 
 ```{r}
 instacart2=
@@ -45,13 +47,20 @@ instacart %>%
   count(department) %>% 
   filter(n < 100000) %>% 
   mutate(department = fct_reorder(department, n)) %>% 
-  plot_ly(x = ~department, y = ~n, color = ~department, type = "bar", colors = "viridis")
+  plot_ly(
+    x = ~department, y = ~n, color = ~department, type = "bar", colors = "viridis") %>% 
+  layout(title = "Total number of items (< 100000) ordered in each department")
 instacart2
 ```
 
-### Chart C
+### Order (<35) in which each product was added to cart in each department 
 
 ```{r}
-
+instacart3=
+instacart %>%
+  filter(add_to_cart_order < 35) %>% 
+  mutate(department = fct_reorder(department, add_to_cart_order)) %>% 
+  plot_ly(y = ~add_to_cart_order, color = ~department, type = "box", colors = "viridis") %>% 
+  layout(title = "Order (<35) in which each product was added to cart in each department")
+instacart3
 ```
-
