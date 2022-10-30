@@ -1,17 +1,38 @@
 ---
-title: "Welcome to Yuxin's website"
+title: "Yuxin's website"
 output: 
   html_document:
     toc: true
     toc_float: true
     theme: cosmo
 ---
+Hello! Welcome to Yuxin Liu's personal website! This website contains my [Resume](resume.html), [GitHub](http://github.com/YuxinLiu98/), email, and other professional networks [Linkedin](https://www.linkedin.com/in/yuxin-liu-5b9b6a181/).
 
+### Summary 
+I am a second-year master of public health candidate who is passionate in pursuing a career in epidemiological or biostatistic field. 
 
+### RESEARCH EXPERIENCE
 
-```{r, message = FALSE}
-library(tidyverse)
-```
+* Columbia University, Mailman School of Public Health, Guohua Li’s Lab (Apr 2022 - present)
+  * Research Assistant 
+    * Conducted literature-reviews, created statistical models, and constructed relevant deliverables (abstract, tables, and manuscript)
+    * Analyzed quantitative data from Longitudinal Research on Aging Drivers (LongROAD) project via SAS and assisted in the development of new SAS code
+    * Assessed excess crash risk associated with Attention Deficit/Hyperactivity Disorder (ADHD) based on collected driving data in old adults
 
-Please navigate to my [resume](resume.html)
+* The Scripps Research Institute, Suto Lab (Jan 2019 - Mar 2020)
+  * Research Assistant 
+    * Conducted literature-reviews, analyzed environmental cues for rats’ drug-seeking behaviors, and assisted study of immunohistochemistry
+    * Trained rats through Pavlovian procedures using test/control methodology and skilled at Microdialysis and brain-sectioning of rats on cryostats, microtome, and vibratome
+    * Collaborated in preparation and publication of a poster shown at 2019 Society for Neuroscience (SfN) annual meeting as an co-author
+    
+### WORK EXPERIENCE
+
+* Columbia University, Mailman School of Public Health (Aug 2022 - present)
+  * Teaching Assistant 
+    * Designed lesson plans, administered weekly lab sessions of the course (Research Methods & Applications), and graded homework
+    * Tutored students one-on-one academically after class, provided targeted solutions to the difficulties encountered by students, and facilitated positive interactions between students
+
+### SKILLS AND LANGUAGES
+* Techniques: SAS, R, Microsoft Series (Excel, Powerpoint, and Word), Adobe Photoshop
+* Languages: Mandarin (Native), English (GRE Score: 321), Japanese (JLPT certificates: N2 Level)
 
