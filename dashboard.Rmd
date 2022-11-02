@@ -17,7 +17,7 @@ data("instacart")
 janitor::clean_names(instacart)
 ```
 
-Column {data-width=650}
+Column {data-width=450}
 -----------------------------------------------------------------------
 
 ###  Total number of items (< 500) ordered in each aisle
@@ -35,7 +35,7 @@ instacart %>%
 instacart1
 ```
 
-Column {data-width=350}
+Column {data-width=450}
 -----------------------------------------------------------------------
 
 ### Total number of items (< 100000) ordered in each department 
